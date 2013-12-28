@@ -11,11 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class NetworkScanDB {
 	
-	/*public static final String Key_RowID="_id";
-	public static final String Key_Lat="latitude";
-	public static final String Key_Lon="longitude";
-	public static final String Key_Accur="accuracy";
-	public static final String Key_Time="time";*/
 	
 	public static String Key_RowID="_id";
 	public static String Key_Lat="latitude";
