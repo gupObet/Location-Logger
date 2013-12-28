@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- row.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:paddingBottom="6dip"
+    android:paddingTop="4dip" >
+
+    
+    <TextView
+        android:id="@+id/t0"
+        android:layout_width="30dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Row" />
+    
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="80dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Lat" />
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="90dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Lon" />
+
+    <TextView
+        android:id="@+id/t3"
+        android:layout_width="50dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Accur" />
+    
+     <TextView
+        android:id="@+id/t4"
+        android:layout_width="90dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Time" />
+    
+    
+
+</LinearLayout>

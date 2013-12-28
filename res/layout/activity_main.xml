@@ -1,0 +1,128 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/et_minTime"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Enter minTime" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/et_minDis"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Enter minDistance" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_get_network_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="getNetworkLocation"
+            android:text="Get Network Location" />
+
+        <Button
+            android:id="@+id/btn_stop_loc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="stopNetworkLocation"
+            android:text="Stop Getting Location" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:orientation="horizontal"
+        android:paddingBottom="6dip"
+        android:paddingTop="4dip" >
+
+        <TextView
+            android:id="@+id/tt0"
+            android:layout_width="30dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Row" />
+
+        <TextView
+            android:id="@+id/tt1"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lat" />
+
+        <TextView
+            android:id="@+id/tt2"
+            android:layout_width="90dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lon" />
+
+        <TextView
+            android:id="@+id/tt3"
+            android:layout_width="50dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Accur" />
+
+        <TextView
+            android:id="@+id/tt4"
+            android:layout_width="90dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Time" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_below="@+id/linearLayout3">
+		
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#DADADA" />
+    </LinearLayout>
+    
+      <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/linearLayout3"
+        android:layout_marginTop="46dp" >
+    </ListView>
+    
+   
+  
+</RelativeLayout>
