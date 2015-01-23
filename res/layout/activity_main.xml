@@ -33,31 +33,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btn_get_network_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="getNetworkLocation"
-            android:text="Get Network Location" />
-
-        <Button
-            android:id="@+id/btn_stop_loc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="stopNetworkLocation"
-            android:text="Stop Getting Location" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -68,35 +43,43 @@
 
         <TextView
             android:id="@+id/tt0"
-            android:layout_width="30dip"
+            android:layout_width="40dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+			android:layout_weight="1"
             android:text="Row" />
+        
+        <TextView
+            android:id="@+id/tt5"
+            android:layout_width="60dip"
+            android:layout_height="wrap_content"
+       		android:layout_weight="1"
+            android:text="Provider" />
+        
 
         <TextView
             android:id="@+id/tt1"
             android:layout_width="80dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+       		android:layout_weight="1"
             android:text="Lat" />
 
         <TextView
             android:id="@+id/tt2"
             android:layout_width="90dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+       		android:layout_weight="1"
             android:text="Lon" />
 
         <TextView
             android:id="@+id/tt3"
-            android:layout_width="50dip"
+            android:layout_width="40dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+           	android:layout_weight="1"	
             android:text="Accur" />
 
         <TextView
             android:id="@+id/tt4"
-            android:layout_width="90dip"
+            android:layout_width="60dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Time" />
@@ -122,7 +105,50 @@
         android:layout_alignTop="@+id/linearLayout3"
         android:layout_marginTop="46dp" >
     </ListView>
-    
-   
+
+      <LinearLayout
+          android:id="@+id/linearLayout2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_below="@+id/linearLayout1"
+          android:orientation="horizontal" >
+
+          <Button
+              android:id="@+id/btn_get_network_location"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:onClick="getNetworkLocation"
+              android:text="Get Network Location"
+              android:textSize="12dip" />
+
+          <Button
+              android:id="@+id/btn_get_gps_location"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:onClick="getGPSLocation"
+              android:text="Get GPS Location"
+              android:textSize="12dip" />
+
+          <Button
+              android:id="@+id/btn_stop_loc"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:onClick="stopNetworkLocation"
+              android:text="Stop Getting Location"
+              android:textSize="12dip" />
+
+          <Button
+              android:id="@+id/btn_clear_list"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:onClick="clearList"
+              android:text="Clear List"
+              android:textSize="12dip" />
+      </LinearLayout>
   
 </RelativeLayout>

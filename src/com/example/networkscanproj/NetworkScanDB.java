@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 public class NetworkScanDB {
@@ -17,6 +18,8 @@ public class NetworkScanDB {
 	public static String Key_Lon="longitude";
 	public static String Key_Accur="accuracy";
 	public static String Key_Time="time";
+	public static String Key_Prov = "provider";
+
 	
 	private static final String Database_Name="NetworkScanDB";
 	private static final String Table_NetWS="Table_NetWS";
@@ -29,11 +32,12 @@ public class NetworkScanDB {
 		
 		
 
-		private static final int DATABASE_VERSION = 1;
+		//changing the version number, makes the call onUpgrade to create the table again
+		private static final int DATABASE_VERSION = 6;
 		
 		
 		private static final String GeoLocInfoQuery = "Create Table " + Table_NetWS + " (" + Key_RowID + 
-				" integer primary key autoincrement, " + Key_Lat + " real, " + Key_Lon + " real, " + 
+				" integer primary key autoincrement, " + Key_Prov + " text not null, " + Key_Lat + " real, " + Key_Lon + " real, " + 
 				Key_Accur + " real, " + Key_Time + " real);";
 
 		//creates a file in the external storage, the SD Card
@@ -45,6 +49,8 @@ public class NetworkScanDB {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
+			Log.w("oncreate", "Creating, query statement is ");
+			Log.w("oncreate", GeoLocInfoQuery);
 			db.execSQL(GeoLocInfoQuery);
 			
 		}
@@ -52,10 +58,14 @@ public class NetworkScanDB {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
-			
+			Log.w("onupgrade", String.format("CALLED oldVersion == %d, newVersion == %d", oldVersion, newVersion));
+			if (oldVersion == newVersion) {
+				Log.w("onupgrade", "CALLED oldVersion == newVersion");
+				return;
+			}
 			//simplest way is to drop and recreate
 			db.execSQL("DROP TABLE IF EXISTS " + Table_NetWS);
-			
+			Log.w("onupgrade", "CALLED oldVersion != newVersion, dropping table");			
 			onCreate(db);
 			
 		}
@@ -79,9 +89,10 @@ public class NetworkScanDB {
 		
 	}
 	
-	public long insertGeoLocInfo(double lat, double lon, float accur, double time) {
+	public long insertGeoLocInfo(String provider, double lat, double lon, float accur, double time) {
 		
 		ContentValues cv = new ContentValues();
+		cv.put(Key_Prov, provider);
 		cv.put(Key_Lat, lat);
 		cv.put(Key_Lon, lon);
 		cv.put(Key_Accur, accur);
@@ -93,7 +104,7 @@ public class NetworkScanDB {
 	
 	public Cursor getGeoLocInfoCursor() {
 		
-		String [] columns = new String [] {Key_RowID, Key_Lat, Key_Lon, Key_Accur, Key_Time};
+		String [] columns = new String [] {Key_RowID, Key_Prov, Key_Lat, Key_Lon, Key_Accur, Key_Time};
 		//Double [] columns = new Double [] {Key_RowID, Key_Lat, Key_Lon, Key_Accur, Key_Time};
 		Cursor c = myDatabase.query(Table_NetWS, columns, null, null, null, null, null);
 		return c;
