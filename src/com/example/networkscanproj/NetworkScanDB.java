@@ -9,9 +9,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-
 public class NetworkScanDB {
-	
 	
 	public static String Key_RowID="_id";
 	public static String Key_Lat="latitude";
@@ -19,22 +17,15 @@ public class NetworkScanDB {
 	public static String Key_Accur="accuracy";
 	public static String Key_Time="time";
 	public static String Key_Prov = "provider";
-
-	
 	private static final String Database_Name="NetworkScanDB";
 	private static final String Table_NetWS="Table_NetWS";
-	
 	private SQLiteDatabase myDatabase;
 	private final Context myContext;
 	private DbHelper myHelper;
 	
 	private static class DbHelper extends SQLiteOpenHelper {
-		
-		
-
 		//changing the version number, makes the call onUpgrade to create the table again
 		private static final int DATABASE_VERSION = 6;
-		
 		
 		private static final String GeoLocInfoQuery = "Create Table " + Table_NetWS + " (" + Key_RowID + 
 				" integer primary key autoincrement, " + Key_Prov + " text not null, " + Key_Lat + " real, " + Key_Lon + " real, " + 
@@ -52,7 +43,6 @@ public class NetworkScanDB {
 			Log.w("oncreate", "Creating, query statement is ");
 			Log.w("oncreate", GeoLocInfoQuery);
 			db.execSQL(GeoLocInfoQuery);
-			
 		}
 
 		@Override
@@ -67,9 +57,7 @@ public class NetworkScanDB {
 			db.execSQL("DROP TABLE IF EXISTS " + Table_NetWS);
 			Log.w("onupgrade", "CALLED oldVersion != newVersion, dropping table");			
 			onCreate(db);
-			
 		}
-		
 	}
 	
 	public NetworkScanDB(Context c) {
@@ -77,20 +65,16 @@ public class NetworkScanDB {
 	}
 	
 	public NetworkScanDB open() throws SQLException {
-		
 		myHelper = new DbHelper(myContext);
 		myDatabase = myHelper.getWritableDatabase();  //allows for reading and writing to this databse
 		return this;
 	}
 	
 	public void close() {
-	
 		myHelper.close();
-		
 	}
 	
 	public long insertGeoLocInfo(String provider, double lat, double lon, float accur, double time) {
-		
 		ContentValues cv = new ContentValues();
 		cv.put(Key_Prov, provider);
 		cv.put(Key_Lat, lat);
@@ -99,7 +83,6 @@ public class NetworkScanDB {
 		cv.put(Key_Time, time);
 
 		return myDatabase.insert(Table_NetWS, null, cv);	
-		
 	}
 	
 	public Cursor getGeoLocInfoCursor() {
@@ -108,7 +91,6 @@ public class NetworkScanDB {
 		//Double [] columns = new Double [] {Key_RowID, Key_Lat, Key_Lon, Key_Accur, Key_Time};
 		Cursor c = myDatabase.query(Table_NetWS, columns, null, null, null, null, null);
 		return c;
-		
 	}
 
 }//endclass NetworkScanDB
