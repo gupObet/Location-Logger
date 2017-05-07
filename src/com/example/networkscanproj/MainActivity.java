@@ -51,19 +51,13 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		// initialize lv
 		lv = (ListView) findViewById(R.id.listView1);
-
-		// getting min time and distance from edit text
 		etMinTime = (EditText) findViewById(R.id.et_minTime);
 		etMinDis = (EditText) findViewById(R.id.et_minDis);
 
 		// initiating location
 		locMan = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
 		provider = locMan.NETWORK_PROVIDER;
-		
 		provider2 = locMan.GPS_PROVIDER;
 
 		try {
@@ -75,7 +69,6 @@ public class MainActivity extends Activity {
 			gps_enabled = locMan.isProviderEnabled(provider2);
 		} catch (Exception ex) {
 		}
-
 		
 		 /* columns, to, sd, lv intialize here so it gets a new copy on every
 		 * onCreate, not using old from previous onCreate
@@ -91,20 +84,16 @@ public class MainActivity extends Activity {
 				columns, to, 0); // had to change to api 11., 0=no query
 
 		lv.setAdapter(sd); // this didn't fix the problem
-
 	}
 
 	LocationListener locationListenerNetwork = new LocationListener() {
-
 		@Override
 		public void onLocationChanged(Location location) {
 			// TODO Auto-generated method stub
-
 			if (location == null) {
 				return;
 			}
 			try {
-
 				GeoLocInfoDb = new NetworkScanDB(MainActivity.this);
 				GeoLocInfoDb.open();
 
@@ -112,36 +101,27 @@ public class MainActivity extends Activity {
 				GeoLocInfoDb.insertGeoLocInfo("network", location.getLatitude(),
 						location.getLongitude(), location.getAccuracy(),
 						location.getTime());
-
 				cursor = GeoLocInfoDb.getGeoLocInfoCursor();
-				
 				bindDataToListView(cursor);
-				
 				GeoLocInfoDb.close();
-				
 			} catch (Exception e) {
 				Log.w("nwscan", e.toString());
 			}
-
 		}
-		
 
 		@Override
 		public void onProviderDisabled(String provider) {
 			// TODO Auto-generated method stub
-
 		}
 
 		@Override
 		public void onProviderEnabled(String provider) {
 			// TODO Auto-generated method stub
-
 		}
 
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			// TODO Auto-generated method stub
-
 		}
 	};
 	
@@ -150,13 +130,11 @@ public class MainActivity extends Activity {
 		@Override
 		public void onLocationChanged(Location location) {
 			// TODO Auto-generated method stub
-			
 			//copied from locationListenerNetwork
 			if (location == null) {
 				return;
 			}
 			try {
-
 				GeoLocInfoDb = new NetworkScanDB(MainActivity.this);
 				GeoLocInfoDb.open();
 
@@ -166,94 +144,65 @@ public class MainActivity extends Activity {
 						location.getTime());
 
 				cursor = GeoLocInfoDb.getGeoLocInfoCursor();
-				
 				bindDataToListView(cursor);
-				
 				GeoLocInfoDb.close();
-				
 			} catch (Exception e) {
 				Log.w("nwscan", e.toString());
 			}
-
-			
 		}
 
 		@Override
 		public void onProviderDisabled(String provider) {
 			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void onProviderEnabled(String provider) {
 			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			// TODO Auto-generated method stub
-			
 		}
 		
 	};
 
 	public void getNetworkLocation(View v) {
-
 		MINTIME = Long.parseLong(etMinTime.getText().toString());
 		MINDIS = Float.parseFloat(etMinDis.getText().toString());
 
 		if (netWork_enabled) {
-
 			requestScan = true;
-
 			locMan.requestLocationUpdates(provider, MINTIME, MINDIS,
 					locationListenerNetwork);
-
 		} else {
 			Toast.makeText(getApplicationContext(), "network not enabled",
 					Toast.LENGTH_LONG).show();
 		}
-
 	}
 	
 	public void getGPSLocation(View v) {
-
 		MINTIME = Long.parseLong(etMinTime.getText().toString());
 		MINDIS = Float.parseFloat(etMinDis.getText().toString());
-
 		if (gps_enabled) {
-
 			requestScan = true;
-
 			locMan.requestLocationUpdates(provider2, MINTIME, MINDIS,
 					locationListenerGPS);
-
 		} else {
 			Toast.makeText(getApplicationContext(), "gps not enabled",
 					Toast.LENGTH_LONG).show();
 		}
-
 	}
 	
 	public void clearList(View v) {
-		
 		/*GeoLocInfoDb = new NetworkScanDB(MainActivity.this);
 		GeoLocInfoDb.open();*/
-		
-		
-
-		
 	}
 	
 	public void bindDataToListView(Cursor cursor) {
-		
-		
-
 		sd = new SimpleCursorAdapter(MainActivity.this, R.layout.nsrow,
-				cursor, columns, to, 0); // had to change to api 11.,
-											// 0=no query
-
+				cursor, columns, to, 0); // had to change to api 11.,// 0=no query
 		// change the last four columns to double, string does not have
 		// enough precision
 		sd.setViewBinder(new ViewBinder() {
@@ -277,7 +226,6 @@ public class MainActivity extends Activity {
 					TextView textView = (TextView) view;
 					textView.setText(String.format("%.6f", lon));
 					return true;
-
 				}
 
 				if (columnIndex == cursor
@@ -297,7 +245,6 @@ public class MainActivity extends Activity {
 					textView.setText(String.format("%.0f", time));
 					return true;
 				}
-
 				return false;
 
 			}
@@ -308,31 +255,23 @@ public class MainActivity extends Activity {
 				Toast.LENGTH_LONG).show();
 
 		lv = (ListView) findViewById(R.id.listView1);
-
 		sd.notifyDataSetChanged();
-
 		lv.setAdapter(sd);
-
-
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-
 		// retrieve requestScan with SharedPreferences
 		prefs = getSharedPreferences(prefName, MODE_PRIVATE);
 		if (prefs.contains(savedReqScan)) {
 			requestScan = prefs.getBoolean(savedReqScan, false); // false if "savedReqScan" not present
-                                                                                                                            
-			Toast.makeText(getApplicationContext(),
-					"onResume, reqScan " + requestScan, Toast.LENGTH_LONG)
-					.show();
+       			Toast.makeText(getApplicationContext(),"onResume, reqScan " + requestScan, 
+				Toast.LENGTH_LONG).show();
 		}
 
 		if (prefs.contains(savedMinTime) && prefs.contains(savedMinDis)) {
-
 			MINTIME = prefs.getLong(savedMinTime, 99);
 			MINDIS = prefs.getFloat(savedMinDis, 100);
 		}
@@ -344,16 +283,12 @@ public class MainActivity extends Activity {
 		GeoLocInfoDb.open();
 		cursor = GeoLocInfoDb.getGeoLocInfoCursor();
 		bindDataToListView(cursor);
-
 		GeoLocInfoDb.close();
 	
-
 		if (requestScan) {
 			locMan.requestLocationUpdates(provider, MINTIME, MINDIS,locationListenerNetwork);
-			
 			locMan.requestLocationUpdates(provider2, MINTIME, MINDIS, locationListenerGPS);
 		}
-
 	}
 
 	/*
@@ -365,23 +300,19 @@ public class MainActivity extends Activity {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-
 		locMan.removeUpdates(locationListenerNetwork);
-
 		Toast.makeText(getApplicationContext(),
 				"onPause,  reqScan ," + requestScan, Toast.LENGTH_LONG).show();
 
 		prefs = getSharedPreferences(prefName, MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
 
-		// saved requestScan variable so when app returns, requestScan can be
-		// retrieved
+		// saved requestScan variable so when app returns, requestScan can be retrieved
 		editor.putBoolean(savedReqScan, requestScan);
 
 		// save MinTime (long) and MinDis (float)
 		editor.putLong(savedMinTime, MINTIME);
 		editor.putFloat(savedMinDis, MINDIS);
-
 		editor.commit();
 
 	}
@@ -401,7 +332,6 @@ public class MainActivity extends Activity {
 	public void stopNetworkLocation(View v) {
 		locMan.removeUpdates(locationListenerNetwork);
 		locMan.removeUpdates(locationListenerGPS);
-
 		requestScan = false;
 	}
 
