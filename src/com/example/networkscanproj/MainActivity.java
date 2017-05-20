@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
 		sd = new SimpleCursorAdapter(MainActivity.this, R.layout.nsrow, cursor,
 				columns, to, 0); // had to change to api 11., 0=no query
 
-		lv.setAdapter(sd); // this didn't fix the problem
+		lv.setAdapter(sd); 
 	}
 
 	LocationListener locationListenerNetwork = new LocationListener() {
@@ -250,8 +250,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		Toast.makeText(getApplicationContext(),
-				"added new location onLocationChanged",
+		Toast.makeText(getApplicationContext(), "added new location onLocationChanged",
 				Toast.LENGTH_LONG).show();
 
 		lv = (ListView) findViewById(R.id.listView1);
@@ -314,7 +313,6 @@ public class MainActivity extends Activity {
 		editor.putLong(savedMinTime, MINTIME);
 		editor.putFloat(savedMinDis, MINDIS);
 		editor.commit();
-
 	}
 
 	/*
@@ -326,7 +324,6 @@ public class MainActivity extends Activity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-
 	}
 
 	public void stopNetworkLocation(View v) {
